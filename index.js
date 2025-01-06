@@ -43,16 +43,21 @@ app.get('/calculate-tax', (request, response) => {
 
 function calculateNoOfDays(shippingMethod, distance) {
   let noOfDays;
+  const equalityCheck = (s1,s2)=>s1.toLowerCase()=== s2.toLowerCase();
   //console.log('no of days are' + noOfDays);
-  if (shippingMethod === 'Standard') noOfDays = distance / 50;
-  else if (shippingMethod === 'Express') noOfDays = distance / 100;
+  //if (shippingMethod === 'Standard'.to) 
+  if(equalityCheck(shippingMethod,'Standard'))
+  noOfDays = distance / 50;
+  else if (equalityCheck(shippingMethod ,'Express'))
+   noOfDays = distance / 100;
   return noOfDays;
 }
 
 app.get('/estimate-delivery', (request, response) => {
   let shippingMethod = request.query.shippingMethod;
   let distance = parseFloat(request.query.distance);
-  response.send(calculateNoOfDays(shippingMethod, distance).toString());
+  let result  = calculateNoOfDays(shippingMethod, distance);
+  response.send(result.toString());
 });
 
 /*app.get('/estimate-delivery', (request, response) => {
